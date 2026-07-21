@@ -1,0 +1,47 @@
+Dependencies and generated build artifacts
+node_modules/
+dist/
+build/
+coverage/
+.next/
+out/
+
+Flutter and Dart generated files
+.dart_tool/
+.pub/
+.flutter-plugins
+.flutter-plugins-dependencies
+**/build/
+
+Generated or local data
+generated/
+uploads/
+logs/
+tmp/
+temp/
+
+Environment and secrets
+.env
+.env.*
+!.env.example
+
+Git and editor files
+.git/
+.vscode/
+.idea/
+
+Package locks and generated files
+package-lock.json
+**/package-lock.json
+*.min.js
+*.min.css
+
+Database files and backups
+*.db
+*.sqlite
+*.sqlite3
+*.sql backups/
+
+Operating-system files
+.DS_Store
+Thumbs.db
