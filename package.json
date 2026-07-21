@@ -1,0 +1,28 @@
+{
+  "name": "restaurant-kos",
+  "version": "1.0.0",
+  "description": "Production-grade Restaurant POS &amp; Kitchen Order System",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mounishmars/restaurant-kos.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/mounishmars/restaurant-kos/issues"
+  },
+  "homepage": "https://github.com/mounishmars/restaurant-kos#readme",
+  "devDependencies": {
+    "prettier": "3.9.6"
+  }
+}

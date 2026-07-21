@@ -1,9 +1,8 @@
-version: "3.9"
+version: '3.9'
 
 name: restaurant-kos-dev
 
 services:
-
   postgres:
     image: postgres:16
     container_name: restaurant-postgres
@@ -13,13 +12,13 @@ services:
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
       POSTGRES_DB: ${POSTGRES_DB}
     ports:
-      - "${POSTGRES_PORT}:5432"
+      - '${POSTGRES_PORT}:5432'
     volumes:
       - postgres_data:/var/lib/postgresql/data
     networks:
       - restaurant-network
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER}"]
+      test: ['CMD-SHELL', 'pg_isready -U ${POSTGRES_USER}']
       interval: 10s
       timeout: 5s
       retries: 5
@@ -29,13 +28,13 @@ services:
     container_name: restaurant-redis
     restart: unless-stopped
     ports:
-      - "${REDIS_PORT}:6379"
+      - '${REDIS_PORT}:6379'
     volumes:
       - redis_data:/data
     networks:
       - restaurant-network
     healthcheck:
-      test: ["CMD", "redis-cli", "ping"]
+      test: ['CMD', 'redis-cli', 'ping']
       interval: 10s
       timeout: 5s
       retries: 5
@@ -64,7 +63,7 @@ services:
       SONAR_JDBC_USERNAME: ${SONAR_USER}
       SONAR_JDBC_PASSWORD: ${SONAR_PASSWORD}
     ports:
-      - "${SONAR_PORT}:9000"
+      - '${SONAR_PORT}:9000'
     volumes:
       - sonarqube_data:/opt/sonarqube/data
       - sonarqube_extensions:/opt/sonarqube/extensions
@@ -80,7 +79,7 @@ services:
       PGADMIN_DEFAULT_EMAIL: ${PGADMIN_EMAIL}
       PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_PASSWORD}
     ports:
-      - "5050:80"
+      - '5050:80'
     depends_on:
       - postgres
     volumes:
@@ -97,8 +96,8 @@ services:
       MINIO_ROOT_USER: ${MINIO_ROOT_USER}
       MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD}
     ports:
-      - "${MINIO_API_PORT}:9000"
-      - "${MINIO_CONSOLE_PORT}:9001"
+      - '${MINIO_API_PORT}:9000'
+      - '${MINIO_CONSOLE_PORT}:9001'
     volumes:
       - minio_data:/data
     networks:
@@ -109,8 +108,8 @@ services:
     container_name: mailpit
     restart: unless-stopped
     ports:
-      - "${MAILPIT_SMTP_PORT}:1025"
-      - "${MAILPIT_UI_PORT}:8025"
+      - '${MAILPIT_SMTP_PORT}:1025'
+      - '${MAILPIT_UI_PORT}:8025'
     networks:
       - restaurant-network
 

@@ -1,0 +1,13 @@
+#Node.js dependencies
+node_modules/
+
+#secrets and local settings
+.env
+.env.*
+!.env.example
+
+#IDE and editor files
+.vscode/*
+!.vscode/settings.json
+!.vscode/settings.json
+!.vscode/launch.json
