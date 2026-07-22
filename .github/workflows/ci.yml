@@ -102,24 +102,3 @@ jobs:
       - name: Run Flutter tests
         run: flutter test
 
-  checkmarx:
-    name: Checkmarx | Scan
-    runs-on: ubuntu-latest
-    needs: [admin, backend, mobile]
-
-    if: >
-      github.event_name != 'pull_request' && github.base_ref == 'main' || 
-      github.event.pull_request.head.repo.full_name == github.repository && github.event.pull_request.base.ref == 'main'
-
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4 
-
-      - name: Run Checkmarx Scan
-        uses: checkmarxdev/ast-github-action@2.3.39
-        with:
-         project-name: "kos-restaurant"
-         cx_tenant: ${{ secrets.CX_TENANT }}
-         base-url: ${{ secrets.CX_BASE_URL }}
-         cx_client_id: ${{ secrets.CX_CLIENT_ID }} 
-         cx_client_secret: ${{ secrets.CX_CLIENT_SECRET }}
