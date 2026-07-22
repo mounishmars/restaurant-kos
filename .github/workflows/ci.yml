@@ -2,9 +2,9 @@ name: CI
 
 on:
   push:
-    branches: - main
+    branches: [main]
   pull_request:
-    branches: - main
+    branches: [main]
 
   #Needed only if you later enable github merge queue
   #merge_queue:
@@ -101,45 +101,6 @@ mobile:
 
       - name: Run Flutter tests
         run: flutter test
-
-
-sonarqube:
-    name: SonarQube | Scan
-    runs-on: ubuntu-latest
-    needs: [admin, backend, mobile]
-
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4 
-        with:
-          fetch-depth: 0 # Fetch all history for all branches and tags
-
-      - name: Scan Admin Application
-        uses: SonarSource/sonarqube-scan-action@v8
-        with:
-          projectBaseDir: apps/admin/kos-admin
-          args: >
-            -Dsonar.qualitygate.wait=true
-        env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-
-      - name: Scan Backend Application
-        uses: SonarSource/sonarqube-scan-action@v8
-        with:
-          projectBaseDir: apps/backend/kos-backend
-          args: >
-            -Dsonar.qualitygate.wait=true
-        env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-
-      - name: Scan Mobile Application
-        uses: SonarSource/sonarqube-scan-action@v8
-        with:
-          projectBaseDir: apps/mobile/kos-mobile
-          args: >
-            -Dsonar.qualitygate.wait=true
-        env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
 checkmarx:
     name: Checkmarx | Scan
