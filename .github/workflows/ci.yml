@@ -1,0 +1,104 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+  #Needed only if you later enable github merge queue
+  #merge_queue:
+
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  admin:
+    name: Admin | lint and build
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: apps/admin/kos-admin
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4 
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: "npm"
+          cache-dependency-path: apps/admin/kos-admin/package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run Lint  
+        run: npm run lint
+
+      - name: Build Admin Application
+        run: npm run build
+
+  backend:
+    name: Backend | lint and build
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: apps/backend/kos-backend
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4 
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: "npm"
+          cache-dependency-path: apps/backend/kos-backend/package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run Lint  
+        run: npm run lint
+
+      - name: Build Backend Application
+        run: npm run build
+
+  mobile:
+    name: Mobile | lint and build
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: apps/mobile/kos-mobile
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4 
+
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          cache: true
+
+      - name: Install Flutter dependencies
+        run: flutter pub get
+
+      - name: Analyze Flutter Application
+        run: flutter analyze
+
+      - name: Run Flutter tests
+        run: flutter test
+
